@@ -15,6 +15,13 @@ public class MeetingServiceImpl implements MeetingService{
 	
 	@Autowired
 	private MeetingRepository meetingRepository;
+	
+	@Override
+	public MeetingListDto getAllMeetings() {
+		List<Meeting> meetingList = this.meetingRepository.findAll();
+		MeetingListDto meetingListDto = new MeetingListDto(meetingList);
+		return meetingListDto;
+	}
 
 	@Override
 	public MeetingListDto getAllMeetingsByStudentId(Long studentId) {

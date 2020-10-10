@@ -1,17 +1,5 @@
 server:
   port: 8082
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://eureka:8761/eureka
 spring:
   application:
-    name: user-meeting
-  cloud:
-    config:
-      uri: http://192.168.99.101:8888
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+    name: user-info

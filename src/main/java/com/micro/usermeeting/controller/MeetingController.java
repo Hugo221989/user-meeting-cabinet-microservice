@@ -1,7 +1,5 @@
 package com.micro.usermeeting.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.micro.usermeeting.entity.Meeting;
 import com.micro.usermeeting.model.MeetingListDto;
 import com.micro.usermeeting.service.MeetingService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,6 +28,12 @@ public class MeetingController {
 	@Autowired
 	private MeetingService meetingService;
 	
+	@GetMapping("/getAllMeetings")
+	@ApiOperation(value = "Obtener todas las reuniones", notes = "Este servicio web obtiene todas las reuniones.", response = MeetingListDto.class, responseContainer = "MeetingListDto")
+	public MeetingListDto getAllMeetings() {
+		return this.meetingService.getAllMeetings();
+	}
+	
 	@GetMapping("/getAllMeetingsByStudentId")
 	@ApiOperation(value = "Obtener todas las reuniones de un alumno", notes = "Este servicio web obtiene una lista de todas las reuniones de un alumno.", response = MeetingListDto.class, responseContainer = "MeetingListDto")
 	public MeetingListDto getAllMeetingsByStudentId(@ApiParam(name ="id", example="1", value = "studentId", required = false)@RequestParam(required = false) Long studentId) {
@@ -39,10 +42,10 @@ public class MeetingController {
 
 	@GetMapping("/")
 	@ApiOperation(value = "Obtener la información de una reunion", notes = "Este servicio web obtiene los datos de una reunión de un alumnor.", response = Meeting.class, responseContainer = "Meeting")
-	public ResponseEntity<Meeting> getMeetingData(@ApiParam(name ="id", example="1", value = "id", required = false)@RequestParam(required = false) Long id) {
+	public ResponseEntity<Meeting> getMeetingData(@ApiParam(name ="meetingId", example="1", value = "id", required = false)@RequestParam(required = false) Long meetingId) {
 		Meeting meeting;
 		try {
-			meeting = this.meetingService.findMeetingById(id);
+			meeting = this.meetingService.findMeetingById(meetingId);
 		}catch(Exception e) {
 			return new ResponseEntity("No encontrado", HttpStatus.NOT_FOUND);
 		}

@@ -6,6 +6,7 @@ import com.micro.usermeeting.model.MeetingListDto;
 
 public interface MeetingService {
 
+	MeetingListDto getAllMeetings();
 	MeetingListDto getAllMeetingsByStudentId(Long studentId);
 	Meeting findMeetingById(long id);
 	Meeting saveMeeting(Meeting meeting);
